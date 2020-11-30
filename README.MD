@@ -1,17 +1,18 @@
 # PyVEnvDeployHelper
-small set of .bat scripts for deploy simple python scripts in venv to users windows PC with detect and use installed python interpreter
+A small set of .bat scripts to deploy simple python scripts in venv to a user windows PC. 
+It detects and uses an installed python interpreter.
 
-- it detect python interpreter from
+- it detects python interpreter from
   - PATH
-  - py.exe launcher if it installed
-  - registry if present python 3.7-3.9
-- trust existing `requirements.txt` or create new via [pigar](https://github.com/Damnever/pigar)
+  - py.exe launcher if it is installed
+  - registry if python 3.7-3.9 is present
+- trusts existing `requirements.txt` or creates new via [pigar](https://github.com/Damnever/pigar)
 - options
   - `-h` or `-?` - get help
   - `-c` - prepare venv to compile project using pyinstaller
   - `-e` - not create vstart_* Scripts for each .py
   - `-w` - create noConsole vstart_* Scripts
-- also you can modify this script for preset some options (see inside)
+- also you can modify this script to preset some options (see inside)
 
 ## use:
 
