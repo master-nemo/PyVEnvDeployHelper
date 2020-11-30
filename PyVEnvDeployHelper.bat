@@ -96,8 +96,18 @@ if exist requirements.txt (
 
 
 @REM ### create venv ##############
-@echo ### creating venv ...
-%py% -m venv .	
+
+if exist Scripts ( 
+	echo venv already exist.
+
+	@REM TODO
+
+	) else (
+	@echo ### creating venv ...
+	%py% -m venv .	
+	) 
+
+
 @echo ### activating venv ...
 call .\Scripts\activate.bat
 @echo ### installing requirements  ...
