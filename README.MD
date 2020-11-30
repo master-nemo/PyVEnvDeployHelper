@@ -6,13 +6,16 @@ small set of .bat scripts for deploy simple python scripts in venv to users wind
   - py.exe launcher if it installed
   - registry if present python 3.7-3.9
 - trust existing `requirements.txt` or create new via [pigar](https://github.com/Damnever/pigar)
-- option `-c` can be used to prepare venv to compile project using pyinstaller
+- options
+  - `-h` or `-?` - get help
+  - `-c` - prepare venv to compile project using pyinstaller
+  - `-e` - not create vstart_* Scripts for each .py
+  - `-w` - create noConsole vstart_* Scripts
+- also you can modify this script for preset some options (see inside)
 
 ## use:
 
-`PyVEnvDeployHelper.bat -h` - for help
-
-`PyVEnvDeployHelper.bat -c` - for compile version
+`PyVEnvDeployHelper.bat [options]` 
 
 ```
 =====================================================================
@@ -22,7 +25,13 @@ small set of .bat scripts for deploy simple python scripts in venv to users wind
 ===
 ===  trust requirements.txt if it present or create new if not!
 ===
-===  use option -c to prepare for compile
+=== options:
+===                     -h or -?        -       help
+===                     -c              -       prepare for compile
+===                     -e              -       not create vstart_* Scripts for each .py
+===                     -w              -       create noConsole vstart_* Scripts
+===
+=== also you can modify this script for preset options (see inside)
 ===
 =====================================================================
 ```

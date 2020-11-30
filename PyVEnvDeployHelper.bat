@@ -28,9 +28,12 @@
 @REM @rem		prepare for compile
 @REM @set COMPILE=yes
 
-@REM @rem		not create vstart_* Scripts for each .py
-@set NOVSTARTS=yes
+@REM @REM @rem		not create vstart_* Scripts for each .py
+@REM @set NOVSTARTS=yes
 @echo =====================================================================
+
+
+@REM #################################################################################
 
 @REM default
 @set PYvstart=python.exe
