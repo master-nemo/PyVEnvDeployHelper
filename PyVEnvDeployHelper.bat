@@ -61,17 +61,19 @@ call .\Scripts\activate.bat
 @echo ### installing requirements  ...
 pip install -r requirements.txt
 
-@echo ### creating vstart  ...
-@echo @rem execute script for use venv. call vstart.cmd ~pythonFile.py~ > vstart.cmd
-@echo call .\Scripts\activate.bat >>vstart.cmd
-@echo python.exe %%* >> vstart.cmd
+:vstart
+@echo off
 
+echo ### creating universal vstart that activates  ...
+echo @rem execute script for use venv. call vstart.cmd ~pythonFile.py~ > vstart.cmd
+echo call .\Scripts\activate.bat >>vstart.cmd
+echo python.exe %%* >> vstart.cmd
 
-REM ############################### TODO
+@REM for %%p in (*.py) do 
+
 
 if defined COMPILE (
-    @echo off
-    rem  for compile 
+    echo pfepare venv for compile 
     pip install pyinstaller tinyaes
 
     echo call .\Scripts\activate.bat > compilew.cmd
@@ -91,7 +93,7 @@ if defined COMPILE (
     echo compile venv created 
     echo 	use `compile.cmd <your file>`
     echo 	or `compilew.cmd <your file>` for no console
-    echo 	or ...K.cmd  versions (modify KEY ! first) to encrypt
+    echo 	or ...K.cmd  versions to encrypt. modify KEY first !!!
     )
 
 

@@ -1,5 +1,6 @@
-*.zip 
-*.7z 
-*.exe 
-backup\ 
-.vscode\ 
+*.zip
+*.7z
+*.exe
+backup\
+.vscode\
+vstart.cmd
