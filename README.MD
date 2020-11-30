@@ -5,7 +5,7 @@ small set of .bat scripts for deploy simple python scripts in venv to users wind
   - PATH
   - py.exe launcher if it installed
   - registry if present python 3.7-3.9
-  - trust existing `requirements.txt` or create new via [pigar](https://github.com/Damnever/pigar)
+- trust existing `requirements.txt` or create new via [pigar](https://github.com/Damnever/pigar)
 - option `-c` can be used to prepare venv to compile project using pyinstaller
 
 ## use:
