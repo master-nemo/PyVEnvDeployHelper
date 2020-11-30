@@ -6,17 +6,56 @@
 @echo === 
 @echo === trust requirements.txt if it present or create new if not! 
 @echo === 
-@echo === use option -c to prepare for compile
+@echo === options:
+@echo ===			-h or -?	- 	help
+@echo ===			-c		- 	prepare for compile
+@echo ===			-e		- 	not create vstart_* Scripts for each .py
+@echo ===			-w		- 	create noConsole vstart_* Scripts
+@REM @echo ===			-m 			- 	minimal venv only without requirements 
+@REM @echo === 							for distrib minimal and deploy at users PC 
+@REM @echo === 			-f			- 	force create env even if it already exist				
+@echo === 
+@echo === also you can modify this script for preset options (see inside)
 @echo === 
 @echo =====================================================================
 
-if "%1"=="-c" ( @set COMPILE=yes &  @echo  prepare for compile mode ON )
-if "%1"=="-C" ( @set COMPILE=yes &  @echo  prepare for compile mode ON )
+@REM also you can modify this script for preset options:
+@REM uncomment following for:
 
-if "%1"=="-h" ( pause && exit /b 0 )
-if "%1"=="-H" ( pause && exit /b 0 )
-if "%1"=="-?" ( pause && exit /b 0 )
-if "%1"=="/?" ( pause && exit /b 0 )
+@REM @rem		create noConsole vstart_* Scripts:
+@REM @set PYvstart=start pythonw.exe
+
+@REM @rem		prepare for compile
+@REM @set COMPILE=yes
+
+@REM @rem		not create vstart_* Scripts for each .py
+@set NOVSTARTS=yes
+@echo =====================================================================
+
+@REM default
+@set PYvstart=python.exe
+
+
+:loopParam
+set AA=%1
+if defined AA (
+    if "%AA%"=="-h" ( pause && exit /b 0 )
+    if "%AA%"=="-H" ( pause && exit /b 0 )
+    if "%AA%"=="-?" ( pause && exit /b 0 )
+    if "%AA%"=="/?" ( pause && exit /b 0 )
+
+    if "%AA%"=="-c" ( @set COMPILE=yes &  @echo  prepare for compile mode ON )
+    if "%AA%"=="-C" ( @set COMPILE=yes &  @echo  prepare for compile mode ON )
+    
+	if "%AA%"=="-e" ( @set NOVSTARTS=yes &  @echo  prepare for compile mode ON )
+    if "%AA%"=="-E" ( @set NOVSTARTS=yes &  @echo  prepare for compile mode ON )
+    
+	if "%AA%"=="-w" ( @set PYvstart=start pythonw.exe &  @echo  prepare for compile mode ON )
+    if "%AA%"=="-W" ( @set PYvstart=start pythonw.exe &  @echo  prepare for compile mode ON )
+
+    shift
+    goto :loopParam
+    ) 
 
 
 @REM ========Detect Python interpretator in system ===================
@@ -64,10 +103,15 @@ pip install -r requirements.txt
 :vstart
 @echo off
 
-echo ### creating universal vstart that activates  ...
+echo ### creating universal vstart that activates venv and start specified script ...
 echo @rem execute script for use venv. call vstart.cmd ~pythonFile.py~ > vstart.cmd
 echo call .\Scripts\activate.bat >>vstart.cmd
-echo python.exe %%* >> vstart.cmd
+echo %PYvstart% %%* >> vstart.cmd
+
+if not defined NOVSTARTS (
+	echo ### creating vstart for all py ...
+	for %%q in (*.py) do echo call .\Scripts\activate.bat ^& %PYvstart% %%q %%* > vstart_%%q.cmd
+	)
 
 @REM for %%p in (*.py) do 
 
@@ -77,17 +121,17 @@ if defined COMPILE (
     pip install pyinstaller tinyaes
 
     echo call .\Scripts\activate.bat > compilew.cmd
-    echo pyinstaller -F -w %1 >> compilew.cmd
+    echo pyinstaller -F -w  %%* >> compilew.cmd
 
     echo call .\Scripts\activate.bat > compile.cmd
-    echo pyinstaller -F %1 >> compile.cmd
+    echo pyinstaller -F  %%* >> compile.cmd
 
 
     echo call .\Scripts\activate.bat > compilewK.cmd
-    echo pyinstaller -F -w --key KEY %1 >> compilewK.cmd
+    echo pyinstaller -F -w --key KEY  %%* >> compilewK.cmd
 
     echo call .\Scripts\activate.bat > compileK.cmd
-    echo pyinstaller -F %1 --key KEY >> compileK.cmd
+    echo pyinstaller -F  %%* --key KEY >> compileK.cmd
 
 
     echo compile venv created 
@@ -157,3 +201,31 @@ for /L %%a in (9,-1,7) do (
 @REM not found py
 goto :eof   
 @REM =================== end of sub
+
+
+@REM :subvstartW
+@REM set PYsubvstart=pythonw.exe
+
+@REM :subvstart
+@REM if not defined PYsubvstart set PYsubvstar=python.exe
+
+@REM 	setlocal
+@REM 	set P1=%1
+@REM 	if not defined P1 echo @rem for start py using venv call vstart_.cmd ~pythonFile.py~ > vstart_.cmd
+@REM 	endlocal
+
+@REM 	echo call .\Scripts\activate.bat ^& %PYsubvstart% %%1 %%*  >> vstart_%1.cmd
+
+
+@REM goto :eof   
+@REM @REM =================== end of sub
+
+
+
+
+
+
+
+
+
+
